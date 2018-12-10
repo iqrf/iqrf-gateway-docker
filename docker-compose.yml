@@ -6,19 +6,22 @@ services:
   daemon:
     image: iqrftech/iqrf-gateway-daemon:latest
     volumes:
-      - /etc/iqrf-gateway-daemon
+      - config-data:/etc/iqrf-gateway-daemon
     ports:
       - "1338:1338"
-      - "55000/udp:55000/udp" 
-      - "55300/udp:55300/udp"
+      - "55000:55000/udp" 
+      - "55300:55300/udp"
     restart: always
 
   webapp:
     depends_on:
       - daemon
-    image: iqrftech/iqrf-gateway-webapp:latest
-    volumes_from:
-      - daemon
+    image: iqrftech/iqrf-gateway-webapp:latest-amd64
+    volumes:
+      - config-data
     ports:
-      - "80:80"
+      - "8080:8080"
     restart: always
+
+volumes:
+    config-data:

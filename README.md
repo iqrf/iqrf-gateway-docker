@@ -1,6 +1,6 @@
-# iqrf-gateway-docker-image
+# iqrf-gateway-docker
 
-Docker image for IQRF Gateway.
+Docker compose for IQRF Gateway.
 
-docker build -f amd64-latest.Dockerfile -t iqrftech/iqrf-gateway .
-docker push iqrftech/iqrf-gateway:latest
+docker compose up -d
+docker compose down

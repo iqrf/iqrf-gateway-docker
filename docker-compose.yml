@@ -18,7 +18,7 @@ services:
       - daemon
     image: iqrftech/iqrf-gateway-webapp:latest-amd64
     volumes:
-      - config-data
+      - config-data:/etc/iqrf-gateway-daemon
     ports:
       - "8080:8080"
     restart: always

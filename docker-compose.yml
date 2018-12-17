@@ -4,7 +4,7 @@ version: '3'
 
 services:
   daemon:
-    image: iqrftech/iqrf-gateway-daemon:latest
+    image: iqrftech/iqrf-gateway-daemon:latest-amd64
     privileged: true
     volumes:
       - config-data:/etc/iqrf-gateway-daemon

@@ -5,12 +5,20 @@ version: '3'
 services:
   daemon:
     image: iqrftech/iqrf-gateway-daemon:latest
+    privileged: true
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
+    hostname: iqrf-gateway-daemon
+    networks:
+      - iqrf-network
     ports:
       - "1338:1338"
       - "55000:55000/udp" 
       - "55300:55300/udp"
+    expose:
+      - "1338"
+    devices:
+      - "/dev/spidev2.0:/dev/spidev2.0"
     restart: always
 
   webapp:
@@ -19,9 +27,18 @@ services:
     image: iqrftech/iqrf-gateway-webapp:latest-amd64
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
+    hostname: iqrf-gateway-webapp
+    networks:
+      iqrf-network:
+        aliases:
+            - iqrf-gateway-webapp
     ports:
       - "8080:8080"
     restart: always
 
 volumes:
-    config-data:
+  config-data:
+
+networks:
+  iqrf-network:
+    driver: "bridge"

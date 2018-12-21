@@ -4,6 +4,8 @@ version: '3'
 
 services:
   daemon:
+    depends_on:
+      - mosquitto
     image: iqrftech/iqrf-gateway-daemon:latest-amd64
     privileged: true
     volumes:
@@ -11,6 +13,8 @@ services:
     hostname: iqrf-gateway-daemon
     networks:
       - iqrf-network
+    links:
+      - mosquitto  
     ports:
       - "1338:1338"
       - "55000:55000/udp" 
@@ -32,9 +36,14 @@ services:
       iqrf-network:
         aliases:
             - iqrf-gateway-webapp
+    links:
+      - daemon
     ports:
       - "8080:8080"
     restart: always
+
+  mosquitto:
+    image: eclipse-mosquitto
 
 volumes:
   config-data:

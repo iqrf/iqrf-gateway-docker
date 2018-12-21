@@ -50,6 +50,10 @@ services:
       iqrf-network:
         aliases:
             - mosquitto
+    expose:
+      - "1883"
+    ports:
+      - "1883:1883"
     restart: always
 
 volumes:

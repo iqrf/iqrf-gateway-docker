@@ -40,6 +40,8 @@ services:
       - daemon
     ports:
       - "8080:8080"
+    environment:
+      - IQRFGD_WS_SERVER=ws://daemon:1338
     restart: always
 
   mosquitto:
@@ -48,6 +50,7 @@ services:
       iqrf-network:
         aliases:
             - mosquitto
+    restart: always
 
 volumes:
   config-data:

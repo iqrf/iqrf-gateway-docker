@@ -22,7 +22,7 @@ services:
     expose:
       - "1338"
     devices:
-      - "/dev/spidev2.0:/dev/spidev2.0"
+      - "/dev/spidev1.0:/dev/spidev1.0"
     restart: always
 
   webapp:

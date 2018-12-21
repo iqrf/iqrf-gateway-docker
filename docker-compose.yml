@@ -45,7 +45,7 @@ services:
   mosquitto:
     image: eclipse-mosquitto
     networks:
-    iqrf-network:
+      iqrf-network:
         aliases:
             - mosquitto
 

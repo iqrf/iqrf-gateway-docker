@@ -44,6 +44,10 @@ services:
 
   mosquitto:
     image: eclipse-mosquitto
+    networks:
+    iqrf-network:
+        aliases:
+            - mosquitto
 
 volumes:
   config-data:

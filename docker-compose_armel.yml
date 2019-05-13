@@ -31,7 +31,7 @@ services:
       - daemon
     image: iqrftech/iqrf-gateway-webapp
     volumes:
-      - config-data:/etc/iqrf-gateway-daemon:latest-armhf
+      - config-data:/etc/iqrf-gateway-daemon:latest-arm32v6
     hostname: iqrf-gateway-webapp
     networks:
       iqrf-network:

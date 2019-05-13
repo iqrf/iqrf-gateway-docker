@@ -1,4 +1,5 @@
 # IQRF Gateway for Docker
+# Running on RPI1
 
 version: '3'
 
@@ -6,7 +7,7 @@ services:
   daemon:
     depends_on:
       - mosquitto
-    image: iqrftech/iqrf-gateway-daemon:latest-amd64
+    image: iqrftech/iqrf-gateway-daemon:stable-armel
     privileged: true
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
@@ -22,13 +23,13 @@ services:
     expose:
       - "1338"
     devices:
-      - "/dev/spidev1.0:/dev/spidev1.0"
+      - "/dev/spidev0.0:/dev/spidev0.0"
     restart: always
 
   webapp:
     depends_on:
       - daemon
-    image: iqrftech/iqrf-gateway-webapp:latest-amd64
+    image: iqrftech/iqrf-gateway-webapp
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
     hostname: iqrf-gateway-webapp

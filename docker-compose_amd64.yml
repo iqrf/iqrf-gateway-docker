@@ -7,7 +7,7 @@ services:
   daemon:
     depends_on:
       - mosquitto
-    image: iqrftech/iqrf-gateway-daemon:stable-armel
+    image: iqrftech/iqrf-gateway-daemon:latest-amd64
     privileged: true
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
@@ -29,7 +29,7 @@ services:
   webapp:
     depends_on:
       - daemon
-    image: iqrftech/iqrf-gateway-webapp
+    image: iqrftech/iqrf-gateway-webapp:latest-amd64
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
     hostname: iqrf-gateway-webapp

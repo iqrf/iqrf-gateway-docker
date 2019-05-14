@@ -29,7 +29,7 @@ services:
   webapp:
     depends_on:
       - daemon
-    image: iqrftech/iqrf-gateway-webapp:latest-arm32v7
+    image: iqrftech/iqrf-gateway-webapp:latest-armhf
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
     hostname: iqrf-gateway-webapp

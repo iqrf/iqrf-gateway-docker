@@ -11,6 +11,8 @@ services:
     privileged: true
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
+      - api-schemas:/usr/share/iqrf-gateway-daemon/apiSchemas
+      - daemon-logs:/var/log/iqrf-gateway-daemon
     hostname: iqrf-gateway-daemon
     networks:
       - iqrf-network
@@ -32,6 +34,8 @@ services:
     image: iqrftech/iqrf-gateway-webapp:latest-armhf
     volumes:
       - config-data:/etc/iqrf-gateway-daemon
+      - api-schemas:/usr/share/iqrf-gateway-daemon/apiSchemas
+      - daemon-logs:/var/log/iqrf-gateway-daemon
     hostname: iqrf-gateway-webapp
     networks:
       iqrf-network:

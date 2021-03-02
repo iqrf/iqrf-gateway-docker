@@ -18,7 +18,7 @@ services:
     volumes:
       - ./daemon/config:/etc/iqrf-gateway-daemon
   webapp-backend:
-    image: iqrftech/iqrf-gateway-webapp-backend:latest-amd64
+    image: iqrftech/iqrf-gateway-webapp-backend:latest
     container_name: iqrf-gateway-webapp-backend
     depends_on:
       - daemon

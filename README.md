@@ -5,7 +5,7 @@ Docker compose script for the IQRF Gateway running on AAEON UP2 board.
 ## Start the gateway
 
 ```bash
-docker-compose -f docker-compose_amd64.yml up -d
+docker-compose up -d
 ```
 
 ## Stop the gateway

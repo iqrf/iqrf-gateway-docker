@@ -1,0 +1,5 @@
+{
+  "component": "iqrf::OtaUploadService",
+  "instance": "iqrf::OtaUploadService-Instance1",
+  "uploadPathSuffix": "upload"
+}

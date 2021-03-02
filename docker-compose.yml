@@ -1,0 +1,86 @@
+version: "3.3"
+services:
+  webapp-frontend:
+    image: iqrftech/iqrf-gateway-webapp-frontend:latest
+    container_name: iqrf-gateway-webapp-frontend
+    tty: true
+    depends_on:
+      - daemon
+      - webapp-backend
+    networks:
+      iqrf-gateway:
+    expose:
+      - 80
+      - 443
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./daemon/config:/etc/iqrf-gateway-daemon
+  webapp-backend:
+    image: iqrftech/iqrf-gateway-webapp-backend:latest-amd64
+    container_name: iqrf-gateway-webapp-backend
+    depends_on:
+      - daemon
+    environment:
+      - IQRFGD_WS_SERVER=ws://daemon:1338
+    expose:
+      - 9000
+    networks:
+      iqrf-gateway:
+    volumes:
+      - iqrf-gateway-daemon-apiSchemas:/usr/share/iqrf-gateway-daemon/apiSchemas/
+      - ./daemon/config:/etc/iqrf-gateway-daemon
+      - iqrf-gateway-daemon-configSchemas:/etc/iqrf-gateway-daemon/cfgSchemas
+      - iqrf-gateway-daemon-configSchemas:/usr/share/iqrf-gateway-daemon/cfgSchemas
+      - iqrf-gateway-daemon-log:/var/log/iqrf-gateway-daemon
+      - iqrf-gateway-daemon-scheduler:/var/cache/iqrf-gateway-daemon/scheduler/
+      - iqrf-gateway-daemon-schedulerSchamas:/usr/share/iqrf-gateway-daemon/schedulerSchemas/
+      - iqrf-gateway-webapp-config:/var/www/app/config
+  daemon:
+    image: iqrftech/iqrf-gateway-daemon:latest
+    container_name: iqrf-gateway-daemon
+    depends_on:
+      - mosquitto
+    expose:
+      - 1338
+      - 1438
+    ports:
+      - "1338:1338"
+      - "1438:1438"
+      - "55000:55000/udp"
+      - "55300:55300/udp"
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    networks:
+      iqrf-gateway:
+        aliases:
+         - daemon
+    volumes:
+      - iqrf-gateway-daemon-apiSchemas:/usr/share/iqrf-gateway-daemon/apiSchemas/
+      - ./daemon/config:/etc/iqrf-gateway-daemon
+      - iqrf-gateway-daemon-configSchemas:/usr/share/iqrf-gateway-daemon/cfgSchemas
+      - iqrf-gateway-daemon-log:/var/log/iqrf-gateway-daemon
+      - iqrf-gateway-daemon-scheduler:/var/cache/iqrf-gateway-daemon/scheduler/
+      - iqrf-gateway-daemon-schedulerSchamas:/usr/share/iqrf-gateway-daemon/schedulerSchemas/
+  mosquitto:
+    image: eclipse-mosquitto
+    networks:
+      iqrf-gateway:
+    expose:
+      - 1883
+    ports:
+      - "1883:1883"
+    restart: always
+
+networks:
+  iqrf-gateway:
+    driver: bridge
+
+volumes:
+  iqrf-gateway-daemon-apiSchemas:
+  iqrf-gateway-daemon-configSchemas:
+  iqrf-gateway-daemon-log:
+  iqrf-gateway-daemon-scheduler:
+  iqrf-gateway-daemon-schedulerSchamas:
+  iqrf-gateway-webapp-config:

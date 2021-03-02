@@ -16,7 +16,7 @@ docker-compose down
 
 ## WebGUI of the gateway 
 
-Point browser to http://gw-ip:8080/ and explore.
+Point browser to http://gw-ip/ and explore.
 
 ## Basic examples
 

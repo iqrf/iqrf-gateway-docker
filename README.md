@@ -1,6 +1,30 @@
 # IQRF Gateway
 
-Docker compose script for the IQRF Gateway running on AAEON UP2 board.
+Docker compose script for the IQRF Gateway running on RPI board.
+
+## IQRF interfaces
+
+### CDC or SPI or UART
+
+- select true at either IqrfCdc or IqrfSpi or IqrfUart
+
+```bash
+nano daemon/config/config.json
+```
+
+- configure parameters for selected interface
+
+```bash
+nano daemon/config/iqrf__IqrfCdc.json
+nano daemon/config/iqrf__IqrfSpi.json
+nano daemon/config/iqrf__IqrfUart.json
+```
+
+- change mapping for your communication port of IQRF interface (line 57)
+
+```bash
+nano docker-compose.yml
+```
 
 ## Start the gateway
 

@@ -17,6 +17,7 @@ services:
       - "443:443"
     volumes:
       - ./daemon/config:/etc/iqrf-gateway-daemon
+    restart: always
   webapp-backend:
     image: iqrftech/iqrf-gateway-webapp-backend:latest
     container_name: iqrf-gateway-webapp-backend
@@ -37,6 +38,7 @@ services:
       - iqrf-gateway-daemon-scheduler:/var/cache/iqrf-gateway-daemon/scheduler/
       - iqrf-gateway-daemon-schedulerSchamas:/usr/share/iqrf-gateway-daemon/schedulerSchemas/
       - iqrf-gateway-webapp-config:/var/www/app/config
+    restart: always
   daemon:
     image: iqrftech/iqrf-gateway-daemon:latest
     container_name: iqrf-gateway-daemon
@@ -53,12 +55,8 @@ services:
       - "55300:55300/udp"
     devices:
       - "/dev/spidev0.0:/dev/spidev0.0"
-    links:
-      - mosquitto
     networks:
       iqrf-gateway:
-        aliases:
-         - daemon
     volumes:
       - iqrf-gateway-daemon-apiSchemas:/usr/share/iqrf-gateway-daemon/apiSchemas/
       - ./daemon/config:/etc/iqrf-gateway-daemon
@@ -66,12 +64,11 @@ services:
       - iqrf-gateway-daemon-log:/var/log/iqrf-gateway-daemon
       - iqrf-gateway-daemon-scheduler:/var/cache/iqrf-gateway-daemon/scheduler/
       - iqrf-gateway-daemon-schedulerSchamas:/usr/share/iqrf-gateway-daemon/schedulerSchemas/
+    restart: always
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:1.6
     networks:
       iqrf-gateway:
-        aliases:
-          - mosquitto
     expose:
       - 1883
     ports:

@@ -42,6 +42,7 @@ services:
     container_name: iqrf-gateway-daemon
     depends_on:
       - mosquitto
+    privileged: true
     expose:
       - 1338
       - 1438
@@ -51,7 +52,9 @@ services:
       - "55000:55000/udp"
       - "55300:55300/udp"
     devices:
-      - "/dev/ttyACM0:/dev/ttyACM0"
+      - "/dev/spidev0.0:/dev/spidev0.0"
+    links:
+      - mosquitto
     networks:
       iqrf-gateway:
         aliases:
@@ -67,6 +70,8 @@ services:
     image: eclipse-mosquitto
     networks:
       iqrf-gateway:
+        aliases:
+          - mosquitto
     expose:
       - 1883
     ports:

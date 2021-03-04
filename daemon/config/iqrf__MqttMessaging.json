@@ -1,7 +1,7 @@
 {
   "component": "iqrf::MqttMessaging",
   "instance": "MqttMessaging",
-  "BrokerAddr": "tcp://127.0.0.1:1883",
+  "BrokerAddr": "tcp://mosquitto:1883",
   "ClientId": "IqrfDpaMessaging",
   "Persistence": 1,
   "Qos": 1,

@@ -2,7 +2,6 @@ version: "3.3"
 services:
   webapp-frontend:
     image: iqrftech/iqrf-gateway-webapp-frontend:latest
-    container_name: iqrf-gateway-webapp-frontend
     tty: true
     depends_on:
       - daemon
@@ -20,7 +19,6 @@ services:
     restart: always
   webapp-backend:
     image: iqrftech/iqrf-gateway-webapp-backend:latest
-    container_name: iqrf-gateway-webapp-backend
     depends_on:
       - daemon
     environment:
@@ -41,7 +39,6 @@ services:
     restart: always
   daemon:
     image: iqrftech/iqrf-gateway-daemon:latest
-    container_name: iqrf-gateway-daemon
     depends_on:
       - mosquitto
     privileged: true

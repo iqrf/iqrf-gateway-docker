@@ -51,17 +51,19 @@ for i in {0..1}; do
 done
 ```
 
-## IQRF interfaces
+### IQRF interfaces selection
 
-### CDC or SPI or UART
+ 1. Select true at your interface that connects TR module (keep false at others) 
 
-- select true at either IqrfCdc or IqrfSpi or IqrfUart
+ - IqrfCdc (false)
+ - IqrfSpi (true)
+ - IqrfUart (false)
 
 ```bash
 nano daemon/config/config.json
 ```
 
-- configure parameters for selected interface
+ 2. Configure parameters for the selected interface
 
 ```bash
 nano daemon/config/iqrf__IqrfCdc.json
@@ -69,31 +71,27 @@ nano daemon/config/iqrf__IqrfSpi.json
 nano daemon/config/iqrf__IqrfUart.json
 ```
 
-- change mapping for your communication port of IQRF interface (line 57)
+ 3. Change mapping for your communication port of selected IQRF interface (line 57)
 
 ```bash
 nano docker-compose.yml
 ```
 
-## Start the gateway
+ 4. Start the gateway
 
 ```bash
 docker-compose up -d
 ```
 
-## Stop the gateway
+ 5. Stop the gateway
 
 ```bash
-docker-compose stop
+docker-compose down
 ```
 
-## WebGUI of the gateway 
+### Basic examples
 
-Point browser to http://gw-ip/ and explore.
-
-## Basic examples
-
-### Getting the tools for the testing
+ 1. Getting the tools for the testing
 
 ```bash
 sudo apt-get install mosquitto-clients
@@ -106,14 +104,14 @@ sudo apt-get install -y jq
 rm -f websocat_1.1.0_*.deb
 ```
 
-### Getting the examples
+ 2. Getting the examples
 
 ```bash
 git clone https://gitlab.iqrf.org/open-source/iqrf-gateway-daemon
 cd iqrf-gateway-daemon/examples/bash
 ```
 
-### Run the examples
+ 3. Run the examples
 
 ```bash
 ./mqtt-generic-blink.sh

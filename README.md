@@ -42,7 +42,7 @@ for i in {0..1}; do
 	sed -i "s/\"55000:55000\/udp\"/\"$((55000 + ${i})):55000\/udp\"/g" docker-compose.yml
 	sed -i "s/\"55300:55300\/udp\"/\"$((55300 + ${i})):55300\/udp\"/g" docker-compose.yml
 	sed -i "s/\"1883:1883\"/\"$((1883 + ${i})):1883\"/g" docker-compose.yml
-	sed -i "s/\"\/dev\/spidev0\.0:\/dev\/spidev0\.0\"/\/dev\/ttyACM$((0 + ${i})):\/dev\/ttyACM$((0 + ${i}))\"\"/g" docker-compose.yml
+	sed -i "s/\"\/dev\/spidev0\.0:\/dev\/spidev0\.0\"/\"\/dev\/ttyACM$((0 + ${i})):\/dev\/ttyACM$((0 + ${i}))\"/g" docker-compose.yml
 	perl -i -p0e "s/\"libraryName\": \"IqrfCdc\",\n {12}\"enabled\": false/\"libraryName\": \"IqrfCdc\",\n            \"enabled\": true/g" daemon/config/config.json
 	perl -i -p0e "s/\"libraryName\": \"IqrfSpi\",\n {12}\"enabled\": true/\"libraryName\": \"IqrfSpi\",\n            \"enabled\": false/g" daemon/config/config.json
 	sed -i "s/\/dev\/ttyACM0/\/dev\/ttyACM$((0 + ${i}))/g" daemon/config/iqrf__IqrfCdc.json
